@@ -5,7 +5,7 @@ import { firebaseInstance } from 'firebaseInstance';
 function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [newAccount, setNewAccount] = useState(true);
+  const [newAccount, setNewAccount] = useState(false);
   const [error, setError] = useState('');
 
   const onChange = (e) => {
@@ -45,7 +45,6 @@ function Auth() {
       provider = new firebaseInstance.auth.GithubAuthProvider();
     }
     const data = await authService.signInWithPopup(provider);
-    console.log(data);
   };
 
   return (

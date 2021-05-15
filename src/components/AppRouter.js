@@ -10,20 +10,22 @@ import Home from '../routes/Home';
 import Profile from 'routes/Profile';
 import Auth from '../routes/Auth';
 
-function AppRouter({ isLoggedIn }) {
+function AppRouter({ isLoggedIn, userObj }) {
   return (
     <Router>
       {isLoggedIn && <Navigation />}
       <Switch>
         {isLoggedIn ? (
           <>
-            <Route path='/' component={Home}></Route>
-            <Route path='/profile' component={Profile}></Route>
+            <Route exact path='/'>
+              <Home userObj={userObj} />
+            </Route>
+            <Route path='/profile' component={Profile} />
             <Redirect from='*' to='/' />
           </>
         ) : (
           <>
-            <Route path='/' component={Auth}></Route>
+            <Route path='/' component={Auth} />
             <Redirect from='*' to='/' />
           </>
         )}

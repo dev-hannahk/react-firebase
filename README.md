@@ -1,3 +1,3 @@
-# Hawitter
+# Hannah's Guestbook
 
-- Clone Twitter with React and Firebase.
+- Build a Guestbook with React and Firebase.
