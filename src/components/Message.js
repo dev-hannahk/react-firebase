@@ -1,4 +1,4 @@
-import { dbService } from 'firebaseInstance';
+import { dbService, storageService } from 'firebaseInstance';
 import React, { useState } from 'react';
 
 function Message({ messageObj, isOwner }) {
@@ -9,6 +9,7 @@ function Message({ messageObj, isOwner }) {
     const ok = window.confirm('메세지를 삭제하시겠습니까?');
     if (ok) {
       await dbService.collection('messages').doc(`${messageObj.id}`).delete();
+      await storageService.refFromURL(messageObj.attachmentUrl).delete();
     }
   };
 
@@ -46,6 +47,9 @@ function Message({ messageObj, isOwner }) {
       ) : (
         <>
           <h4>{messageObj.text}</h4>
+          {messageObj.attachmentUrl && (
+            <img src={messageObj.attachmentUrl} width='200px' />
+          )}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Message</button>
