@@ -1,5 +1,5 @@
-import { dbService, storageService } from 'firebaseInstance';
 import React, { useState } from 'react';
+import { dbService, storageService } from 'firebaseInstance';
 
 function Message({ messageObj, isOwner }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -7,9 +7,11 @@ function Message({ messageObj, isOwner }) {
 
   const onDeleteClick = async () => {
     const ok = window.confirm('메세지를 삭제하시겠습니까?');
+    const imgUrl = messageObj.attachmentUrl;
     if (ok) {
       await dbService.collection('messages').doc(`${messageObj.id}`).delete();
-      await storageService.refFromURL(messageObj.attachmentUrl).delete();
+      imgUrl &&
+        (await storageService.refFromURL(messageObj.attachmentUrl).delete());
     }
   };
 

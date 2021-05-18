@@ -5,6 +5,7 @@ function Profile({ userObj, refreshUser }) {
   const [newDisplayName, setNewDisplayName] = useState('');
   const onLogOutClick = () => {
     authService.signOut();
+    refreshUser();
   };
 
   const getMyMessages = async () => {
@@ -17,6 +18,7 @@ function Profile({ userObj, refreshUser }) {
 
   useEffect(() => {
     getMyMessages();
+    return () => getMyMessages;
   }, []);
 
   const onNameChange = (e) => {
